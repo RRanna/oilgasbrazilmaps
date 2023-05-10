@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Brazil Upstream Maps</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/leaflet.markercluster.js"></script>
+  <!--<script src="https://unpkg.com/leaflet-pip"></script>-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./utils/main/style.css">
+  <style type="text/css">
+
+  </style>
+
+  <!-- Script para mover a label com o cursor-->
+  <script>
+
+    document.addEventListener('mouseover', function (e) {
+      var tooltip = document.querySelector('.tooltip');
+      if (tooltip.style.display != 'none') {
+        tooltip.style.top = (e.pageY + 10) + 'px';
+        tooltip.style.left = (e.pageX + 10) + 'px';
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <div id="carregando-progresso">
+    <div id="barra-progresso">
+      <div id="progresso"></div>
+    </div>
+    <p id="texto-progresso">Aguarde enquanto a página é carregada. Isso deve levar alguns segundos.</p>
+  </div>
+  <div class="menu-trigger" id="menu-trigger">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <div class="menu-hidde" id="menu-hidde">
+    <div id="item0" class="menu_lateral_itens"><b>Camadas adicionais </b>
+      <spam id="maiorque0" style="justify-content: flex-end;"><b>></b></spam>
+      <div class="subitens">
+        <button id="InsertLayerSis2DPre" style="width: 180px;" onclick="InsertLayer('2DPre')"><b>Sísmica 2D
+            Pré-Stack</b></button>
+        <button id="InsertLayerSis2DPos" style="width: 180px;" onclick="InsertLayer('2DPos')"><b>Sísmica 2D
+            Pós-Stack</b></button>
+        <button id="InsertLayerSis3DPre" style="width: 180px;" onclick="InsertLayer('3DPre')"><b>Sísmica 3D
+            Pré-Stack</b></button>
+        <button id="InsertLayerSis2DPos" style="width: 180px;" onclick="InsertLayer('3DPos')"><b>Sísmica 3D
+            Pós-Stack</b></button>
+      </div>
+    </div>
+    <div id="item1" class="menu_lateral_itens"><b>Pesquisa por filtro </b>
+      <spam id="maiorque1" style="justify-content: flex-end;"><b>></b></spam>
+      <div class="subitens">
+        <br>
+        <select id="comboFeicao" style="width: 180px;">
+          <option value="0">Selecione uma feição</option>
+          <option value="1">poços</option>
+          <option value="2">sísmica 2D Pre-Stack</option>
+          <option value="3">sísmica 2D Pos-Stack</option>
+          <option value="4">sísmica 3D Pre-Stack</option>
+          <option value="5">sísmica 3D Pos-Stack</option>
+          <option value="6">blocos</option>
+          <option value="7">campos</option>
+
+        </select>
+        <select id="comboColuna" style="width: 180px;">
+          <option value="0">Selecione um atributo</option>
+          <option value="1">nome</option>
+          <option value="2">operador</option>
+          <option value="3">bacia</option>
+        </select>
+        <select id="comboOperLogico" style="width: 180px;">
+          <option value="0">operador lógico</option>
+          <option value="1">igual a</option>
+          <option value="2">diferente de</option>
+          <option value="3">maior que</option>
+          <option value="4">maior ou igual a</option>
+          <option value="5">menor que</option>
+          <option value="6">menor ou igual a</option>
+          <option value="7">contém</option>
+        </select>
+        <input type="text" name="textFilter" id="textFilter" placeholder="digite o valor desejado"
+          style="width: 155px;">
+        <button id="buttonFilter" style="width: 180px;" onclick="LateralLateralFilter()"><b>+ filtrar</b></button>
+        <br>
+      </div>
+    </div>
+    <div id="item2" class="menu_lateral_itens"><b>Tabela de Dados </b>
+      <spam id="maiorque2"><b>></b></spam>
+      <div class="subitens">
+        <button id="mostrarResultados" onclick="openWindow()">Exibir tabela de resultados</button>
+        <br>
+      </div>
+    </div>
+    <div id="item3" class="menu_lateral_itens"><b>Informações sobre os dados <b>
+          <spam id="maiorque3"><b>></b></spam>
+          <div class="subitens">
+            <br>
+            <p class="center">Confecção do mapa: Equipe de Geoprocessamento - SDT - ANP</p>
+            <p class="center">Data da atualização: março/2023</p>
+            <p class="center">SGR: SIRGAS 2000</p>
+            <p class="center">EPSG: 4674</p>
+            <br>
+            <p class="center">Fonte dos dados: Agência Nacional do Petróleo, Gás Natural e Biocombustíveis - ANP</p>
+            <p class="center">NOTA: as informações apresentadas nesta página não necessariamente refletem o estado mais
+              atual dos dados publicados pelos órgãos divulgadores.</p>
+            <br>
+            <p class="center">Consulte também:</p>
+            <a
+              href="https://www.gov.br/anp/pt-br/assuntos/exploracao-e-producao-de-oleo-e-gas/dados-tecnicos/ad/tabela-de-pocos.xlsx">baixar
+              os dados de poços no site da ANP em XLS</a>
+            <br>
+            <a
+              href="https://www.gov.br/anp/pt-br/assuntos/exploracao-e-producao-de-oleo-e-gas/dados-tecnicos/ad/shapefile-de-pocos.zip">baixar
+              os dados de poços no site da ANP em SHP</a>
+            <br>
+            <a href="https://www.gov.br/anp/pt-br/assuntos/exploracao-e-producao-de-oleo-e-gas/dados-tecnicos"
+              target='_blank'>baixar
+              outros dados técnicos da ANP</a>
+          </div>
+    </div>
+  </div>
+  <div id="loader"></div>
+  <div id="loader-message">Espere alguns segundos enquanto o Portal GeoANP Pocket carrega...</div>
+
+  <script>
+    var loader = document.getElementById("loader");
+    var loaderMessage = document.getElementById("loader-message");
+
+    window.onload = function () {
+      loader.style.display = "none";
+      loaderMessage.style.display = "none";
+    };
+
+    window.addEventListener("beforeunload", function () {
+      loader.style.display = "block";
+      loaderMessage.style.display = "block";
+    });
+  </script>
+
+  <div class="container">
+    <h1 id="title">GIS Upstream Pocket</h1>
+    <table class="content">
+      <tr>
+        <td>
+          <div id="map"></div>
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          <div id="selection-count"></div>
+          <p id="text-select-mode">
+            <input type="checkbox" id="select-mode" />
+            <b>Modo de seleção espacial</b>
+            <br><span class="hover-text" style="color: #FF7F50;">*Ajuda</span>
+            <span class="tooltip"><br>Para utilizar essa ferramenta, é necessário:
+              <br> 1. Exibir previamente dados de poços, por meios dos filtros "por operadora" e "por
+              bacia sedimentar";
+              <br> 2. Selecionar as ferramentas de desenho do Painelo de Controle;
+              <br> 3. Selecionar os poços desejados.</span>
+          </p>
+        </td>
+        <td class="center">
+
+        </td>
+      </tr>
+      <tr></tr>
+    </table>
+    <br><br>
+    <!--<p class="center" font="Arial"> Resultados da pesquisa:</p>-->
+    <table id="tableResults" class="center second-table" style="display: none;">
+      <tr>
+        <th bgcolor=#0000CD style="color: #E0FFFF;">Poço</th>
+        <th bgcolor=#0000CD style="color: #E0FFFF;">Cadastro ANP</th>
+        <th bgcolor=#0000CD style="color: #E0FFFF;">Bacia</th>
+        <th bgcolor=#0000CD style="color: #E0FFFF;">Operadora</th>
+        <th bgcolor=#0000CD style="color: #E0FFFF;">Ambiente</th>
+        <th bgcolor=#0000CD style="color: #E0FFFF;">Sigilo</th>
+      </tr>
+    </table>
+  </div>
+
+  <!--<script src="./utils/pocos/pocos.js"></script>-->
+  <script src="./utils/pocos/pocos_coords.js"></script>
+  <script src="./utils/pocos/pocos_info.js"></script>
+
+  <!--<script src="./utils/sismica/2Dpre/sis2DPre_coords.js"></script>
+    <script src="./utils/sismica/2Dpre/sis2DPre_info.js"></script>
+
+    <script src="./utils/sismica/3Dpre/sis3DPre_coords.js"></script>
+    <script src="./utils/sismica/3Dpre/sis3DPre_info.js"></script>
+
+    <script src="./utils/sismica/3Dpos/sis3DPos_coords.js"></script>
+    <script src="./utils/sismica/3Dpos/sis3DPos_info.js"></script>-->
+
+  <script src="./utils/blocos/blocos_coords.js"></script>
+  <script src="./utils/blocos/blocos_info.js"></script>
+
+  <script src="./utils/campos/campos_coords.js"></script>
+  <script src="./utils/campos/campos_info.js"></script>
+  <script src="./utils/presal/presal_info.js"></script>
+  <script src="./utils/presal/presal_coords.js"></script>
+  <script src="./utils/bacias/bacias_coords.js"></script>
+  <script src="./utils/bacias/bacias_info.js"></script>
+  <script src="./utils/main/script.js"></script>
+
+  <script>
+    //elemento "barra de carregamento"
+    var loader = document.getElementById("loader");
+    var loaderMessage = document.getElementById("loader-message");
+
+    window.onload = function () {
+      loader.style.display = "none";
+      loaderMessage.style.display = "none";
+    };
+
+    window.addEventListener("beforeunload", function () {
+      loader.style.display = "none";
+      loaderMessage.style.display = "none";
+    });
+  </script>
+  <!--
+Quando o arquivo for upado para a rede, pode-se quebrar os 
+arquivos de base de dados em js separados, chamá-los no script.js, 
+e utilizar o comando
+
+<script type="module" src="script.js"></script>
+
+no lugar de
+
+<script src="script.js"></script>
+
+acima.
+
+    -->
+</body>
+
+</html>

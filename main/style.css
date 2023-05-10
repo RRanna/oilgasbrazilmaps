@@ -1,0 +1,493 @@
+    body {
+        background-color: #F0F8FF;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        }
+
+    .center {
+        text-align: center;
+    }
+
+    #title {
+        font-family: "Arial";
+        color:  #1abc9c;
+        width: 100%;
+        text-align: center;
+    }
+
+    #map {
+        height: 550px;
+        width: 900px;
+        margin-left: 20px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        z-index: 1
+    }
+
+    #legenda {
+        font-family: "Arial";
+        background-color: #f8f8f8;
+        max-width: 320px;
+        height:550px;
+        text-align: center;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 6px;
+        margin-left: 5px;
+        z-index: 2;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    #text-select-mode {
+        font-family: "Arial";
+    }
+
+    #container {
+    margin: 0 auto;
+    max-width: 1500px;
+    padding: 6px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+    /*
+    input[type="color"],
+    select {
+    border: 2px solid #ddd;
+    border-radius: 0;
+    font-size: 14px;
+    padding: 1px;
+    margin-bottom: 10px;
+
+    }
+     */
+    .color-picker-wrapper {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-top: 5px;
+      border: 3px solid blue;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .color-picker {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      -webkit-appearance: none; /* Remover estilo padrão no Chrome e Safari */
+      -moz-appearance: none; /* Remover estilo padrão no Firefox */
+    }
+
+    .color-picker::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    .color-picker::-webkit-color-swatch {
+      border: none;
+      border-radius: 50%;
+    }
+
+    .color-picker::-moz-color-swatch {
+      border: none;
+      border-radius: 50%;
+    }
+
+    button {
+    background-color: #1abc9c;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 5px 14px;
+    transition: background-color 0.3s ease-in-out;
+        margin-bottom: 10px;
+    }
+
+    button:hover {
+      background-color: #7ddb10;
+      color: rgb(64, 106, 245);
+      transition: background-color 0.3s ease;
+  }
+
+    form {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 80px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+        margin-left: 20px;
+    }
+
+    input[type="text"],
+    select {
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    }
+    
+    textarea {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 6px;
+    resize: horizontal;
+    width: 550px;
+    height: 200px;
+    }
+
+    .checkbox-label {
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+    }
+
+    .checkbox {
+    margin: 10px;
+    }
+
+/* Estilo padrão da label suspensa associada à ajuda do "Modo seleção espacial"*/
+    .tooltip {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 12px;
+    z-index: 1;
+        }
+
+/* Estilo do texto com hover associada à ajuda do "Modo seleção espacial"*/
+    .hover-text:hover + .tooltip {
+    display: block;
+    }
+/* Style for the draggable window */
+    .draggable-window {
+        position: absolute;
+        left: 490px;
+        top: 730px;
+        margin-top: auto;
+        width: 800px;
+        height: 400px;
+        transform: translate(-50%, -50%);
+        border: 1px solid black;
+        background-color: white;
+        z-index: 1000;
+        overflow: auto;
+    }
+    /* Style for the close button */
+    .close-button {
+        position: sticky;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 8px;
+        cursor: pointer;
+        z-index: 1001;
+        
+    }
+    /* Style for the table */
+    table model {
+        table-layout: auto;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table.content {
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+    th {
+        position: sticky;
+        background-color: #e3dcdc;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 8px;
+        text-align: left;
+        transition: background-color 0.3s ease;
+        z-index: 1;
+    }
+
+    th:hover {
+        background-color: #cfc0c0;
+    }
+
+    td,
+    th {
+        border: 1px solid #ddd;
+        color: #727d96;
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    .second-table {
+        max-height: 300px;
+        overflow: auto;
+    }
+    .custom-popup .leaflet-popup-content-wrapper {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+        color: #fff !important;
+        padding: 10px !important;
+    }
+      
+    .custom-popup .leaflet-popup-tip {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+    tr:hover {
+        background-color: #ddd;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    bindPopup {
+        background-color: #1c2022;
+        color: rgb(148, 231, 231);
+    }
+    .leaflet-control-layers-title {
+        font-weight: bold;
+        font-size: 1.1em;
+        margin-bottom: 5px;
+        display: block;
+        padding: 6px;
+
+    }
+    .leaflet-control-layers-toggle {
+        text-align: center;
+        padding: 6px;
+
+    }
+    .leaflet-control-layers-overlays label {
+        background-color: #f2f2f2;
+        border-radius: 4px;
+      }
+
+      .leaflet-control-layers-overlays {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+      
+      .leaflet-control-layers-selector {
+        
+      }
+      .leaflet-control-layers {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 10px;
+
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+
+      .leaflet-control-layers-expanded {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 10px;
+
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+      }
+
+      .leaflet-popup-content {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 10px;
+
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+
+      .leaflet-popup-content-wrapper {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+
+      .leaflet-interactive:hover {
+        color: #770bf1;
+      }
+
+      #loader {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 2s linear infinite;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        display: none;
+      }
+  
+      #loader-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #3498db;
+        font-weight: bold;
+        font-size: 16px;
+        text-align: center;
+        z-index: 9999;
+        display: none;
+      }
+  
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      
+      #menu-trigger {
+          width: 30px;
+          height: 20px;
+          position: absolute;
+          top: 10px;
+          margin-right: 20px;
+          right: 0;
+          cursor: pointer;
+      }
+      
+      
+      .menu-trigger  div {
+          width: 30px;
+          height: 4px;
+          background: rgb(51, 51, 51) none repeat scroll 0% 0%;
+          margin-top: 3px;
+      }
+      
+      
+      .menu-hidde {
+        background: #333 none repeat scroll 0% 0%;
+        width: 230px;
+        height: 100%;
+        position: absolute;
+        box-shadow: 1px 2px 3px #DDD;
+        left: -100%;
+        transition: left 0.5s ease 0s;
+        z-index: 1000;
+      }
+      
+      .menu-hidde li {
+          color: #fff;
+          font-size: 20px;
+          padding: 18px;
+          cursor: pointer;
+      }
+      .menu-hidde ul {
+          position: absolute;
+          top: 31px;
+      }
+
+      .menu_lateral_itens {
+        color: #cfc0c0;
+        font-size: 12px;
+        padding: 10px;
+      }
+      .subitens {
+        color: #cfc0c0;
+        font-size: 12px;
+        display: none;
+        opacity: 0;
+        transition: opacity 1s ease-in-out, display 1s ease-in-out;
+        text-align: left;
+    }
+
+    #maiorque0 {
+      cursor: pointer;
+      color: #cfc0c0;
+      font-size: 14px;
+      display: inline-block;
+      transition: transform 0.2s ease-in-out;
+   }
+
+    #maiorque1 {
+      cursor: pointer;
+       color: #cfc0c0;
+       font-size: 14px;
+       display: inline-block;
+       transition: transform 0.2s ease-in-out;
+    }
+
+    #maiorque2 {
+      cursor: pointer;
+        color: #cfc0c0;
+        font-size: 14px;
+       display: inline-block;
+       transition: transform 0.2s ease-in-out;
+    }
+
+    #maiorque3 {
+      cursor: pointer;
+        color: #cfc0c0;
+        font-size: 14px;
+       display: inline-block;
+       transition: transform 0.2s ease-in-out;
+    }
+
+    .rotate {
+        transform: rotate(90deg);
+    }
+
+    #carregando-progresso {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 999;
+      }
+      #barra-progresso {
+        width: 80%;
+        height: 10px;
+        background-color: #ddd;
+        border-radius: 5px;
+      }
+      #progresso {
+        height: 100%;
+        width: 0;
+        background-color: #4CAF50;
+        border-radius: 5px;
+      }
+      #texto-progresso {
+        margin-top: 10px;
+      }
+
+      .page-link {
+        color: rgb(54, 156, 197);
+      }
+      
+      .page-link.active {
+        color: rgb(10, 71, 202);
+      }
+      
+      .page-item.disabled .page-link {
+        color: rgb(54, 156, 197);
+        pointer-events: none;
+      }
